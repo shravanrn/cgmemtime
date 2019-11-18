@@ -414,6 +414,15 @@ static int pretty_print(const Output *out)
   fprintf(stderr, "Recursive and acc. high-water RSS+CACHE : %10zu KiB\n",
       out->cg_rss_highwater/1024
       );
+
+  FILE*  fpt = fopen("/tmp/cgmemtime_out.txt", "w");
+  if (!fpt) {
+    fprintf(stderr, "tmp file open fail\n");
+    abort();
+  }
+  fprintf(fpt, "%zu\n", out->cg_rss_highwater/1024);
+  fclose(fpt);
+
   return 0;
 }
 
